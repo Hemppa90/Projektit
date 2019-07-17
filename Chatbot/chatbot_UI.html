@@ -1,0 +1,192 @@
+<!DOCTYPE HTML>
+<html lang="fi">
+    <head>
+        <meta charset="utf-8">
+        <link rel="stylesheet" type="text/css" href="chatbot_UI_tyyli.css">
+        <title>Chatbot</title>
+        <script
+			  src="https://code.jquery.com/jquery-3.3.1.js"
+			  integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+			  crossorigin="anonymous">
+		</script>
+    </head>
+    <body>
+
+        <p id="username">ID placeholder</p>
+        <button id="reset_password_button" onclick="createUsername()">Reset UserID</button>
+        <button id="activate_chatbot_button" onclick="toggleChatWindow()">Activate Chat</button>
+
+        <div id="chatbot_frame">
+            <div id="banner">
+                <p id="banner_text">Chatbot Prototype</p>
+            </div>
+            <div id="chatbot_contentpane" style="overflow-y:auto;">
+                <table id="chat_content">
+
+                </table>
+            </div>
+            <div id="textfield_frame">
+                <input id="input_field" type="search" placeholder="Type your message...">
+                <button id="submit_button">Submit</button>
+            </div>
+        </div>
+        
+        <script type="text/javascript">
+
+            //lisätään syötekenttään eventlistener kuuntelemaan
+            //submit-buttonin ja enter-painikkeen painalluksia.
+            var input = document.getElementById("input_field");
+            input.addEventListener("keyup", function(event) {
+                event.preventDefault();
+                if(event.keyCode === 13) {
+                    document.getElementById("submit_button").click();
+                    document.getElementById("input_field").value = '';
+                }
+            });
+
+            createUsername();
+            bindCallback();
+            showAlphaWarning();
+
+            //funktio luo käyttäjän "puhekuplan" chattiin.
+            function createUserChatBubble(text)
+            {
+                var table = document.getElementById("chat_content");
+                var row = table.insertRow(-1);
+                var cell = row.insertCell(0);
+                var child = document.createElement("div");
+
+                child.textContent = "You said: " + text;
+                cell.appendChild(child);
+                child.scrollIntoView();
+
+            };
+
+            //funktio luo botin "puhekuplan" chattiin.
+            function createBotChatBubble(text)
+            {
+                var table = document.getElementById("chat_content");
+                var row = table.insertRow(-1);
+                var cell = row.insertCell(0);
+                var child = document.createElement("div");
+
+                //Parsitaan paluuviestistä '<html><body>' ja '</html></body>' pois.
+                var str = text;
+                var i;
+                var parsed_text = '';
+
+                for(i = 0; i < str.length; i++)
+                {
+                    if(i > 11 && i < str.length - 14)
+                    {
+                        parsed_text += str[i];
+                    }
+                }
+
+                child.textContent = "Bot says: " + parsed_text;
+                cell.appendChild(child);
+                child.scrollIntoView();
+            };
+
+            function bindCallback()
+            {
+                document.getElementById("input_field").value = '';
+                var qwerty = "qwerty_ytrewq";
+
+                $(document).ready(function()
+                { 
+                    $.post("http://localhost:8082/msg",
+                        {
+                            "query": qwerty,
+                            "username": window.username
+                        },
+                        function(data, status)
+                        {
+                            //alert("Data: " + data + "\nStatus: " + status);
+                            createBotChatBubble(data);
+                        });
+
+                    $("#submit_button").click(function()
+                    {
+                        var text_value = document.getElementById("input_field").value;
+                        var user_name = document.getElementById("username").value;
+                        createUserChatBubble(text_value);
+
+                        $.post("http://localhost:8082/msg",
+                        {
+                            "query": text_value,
+                            "username": window.username
+                        },
+                        function(data, status)
+                        {
+                            //alert("Data: " + data + "\nStatus: " + status);
+                            createBotChatBubble(data);
+                        });
+                    });
+                });
+            };
+
+            //funktio luo käyttäjätunnuksen
+            function createUsername()
+            {
+
+                var username = '';
+                var base_value_lower_case = 97;
+                var base_value_upper_case = 65;
+                var number;
+                var ascii_char;
+                var i;
+
+                for(i = 0; i < 32; i++)
+                {
+                    if(Math.floor(Math.random() * 10) < 5)
+                    {
+                        number = Math.floor(Math.random() * 10);
+                        username += number.toString();
+                    }
+                    else if(Math.floor(Math.random() * 10) < 5)
+                    {
+                        ascii_char = (Math.random() * 25) + 1;
+                        number = String.fromCharCode(base_value_lower_case + ascii_char);
+                        username += number;
+                    }
+                    else
+                    {
+                        ascii_char = (Math.random() * 25) + 1;
+                        number = String.fromCharCode(base_value_upper_case + ascii_char);
+                        username += number; 
+                    }
+                }
+
+                window.username = username;
+                document.getElementById("username").innerHTML = "UserID: " + username;
+                window.localStorage.setItem("UserID", username);
+            };
+
+            //funktio piilottaa tai näyttää chatti-ikkunan riippuen klikattavan aktivointipainikkeen tilasta.
+            function toggleChatWindow()
+            {
+                var chat_window = document.getElementById("chatbot_frame");
+
+                if(document.getElementById("activate_chatbot_button").innerHTML == "Activate Chat")
+                {
+                    document.getElementById("activate_chatbot_button").innerHTML = "Deactivate Chat";
+                    chat_window.style.display = "block";
+                }
+                else
+                {
+                    document.getElementById("activate_chatbot_button").innerHTML = "Activate Chat";
+                    chat_window.style.display = "none";
+                }
+            };
+
+            //funktio avaa chatbot protoversion varoitusikkunan.
+            function showAlphaWarning()
+            {
+                alert( "Warning:\n\nThis is a rough prototype of service chatbot and by no means represents a finalized version of the software.\nThe development is currently ongoing.");
+            };
+
+        </script>
+
+    </body>
+</html>

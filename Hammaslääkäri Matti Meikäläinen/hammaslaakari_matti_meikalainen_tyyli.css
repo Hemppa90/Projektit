@@ -1,0 +1,158 @@
+@charset "UTF-8";
+
+/*
+	color choices:
+
+	light blue #A2D3FF
+	lighter blue #C4E2FD
+	lightest blue #CFE8FF
+
+	navy blue: #1898d4
+	navy blue darker: #06618b
+
+	light green: #9EEF8D
+	lighter green: #C5FFB9
+*/
+
+html {
+	padding: 0;
+	background: #EEEAEA;
+}
+
+body {
+	margin: 0;
+}
+
+header {
+	padding: 4em;
+    color: white;
+    background-color: #1898d4;
+    clear: left;
+    text-align: center;
+    border-bottom: 1px solid #CFE8FF;
+    font-family: 'Average', serif;
+    margin: auto; 	
+    
+}
+
+h2 {
+	color: #1898d4;
+	font-size: 30px;
+	font-family: 'Average', serif;
+}
+
+h3 {
+	color: #1898d4;
+	font-size: 30px;
+	font-family: 'Average', serif;
+}
+
+hr {
+	color: #1898d4;
+}
+
+.navibar_container {
+	background-color: #1284ba;;
+	border-top: 1px solid #A2D3FF;
+	width: 100%;
+	height: 35px;
+	padding-top: 10px;
+	margin: auto;
+	text-align: center;
+}
+
+.navi_text {
+	cursor: pointer;
+	display: inline;
+	font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
+	font-size: 17px;
+	color: white;
+	
+}
+
+.navi_text:hover {
+	text-decoration: underline;
+}
+
+.navi_separator {
+	display: inline;
+	font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
+	font-size: 17px;
+	margin-left: 3px;
+	margin-right: 3px;
+	color: white;
+}
+
+#img_dentist {
+	display: block;
+	background-color: grey;
+	border-radius: 10px 10px 10px 10px;
+	width: 300px;
+	height: 360px;
+	margin-left: 25px;
+}
+
+#map {
+	display: block;
+	border-radius: 10px 10px 10px 10px;
+	margin: 25px 25px 25px 25px;
+}
+
+.container {
+	width: 100%;
+	margin: auto;
+}
+
+.content_container {
+}
+
+.content {
+	box-shadow: 0px 10px 5px #000000;
+	margin: auto;
+	background-color: white;
+	text-align: center;
+	padding-top: 25px;
+	padding-right: 25px;
+	padding-left: 25;
+	width: 1060px;
+	min-width: 1060px;
+	resize: both;
+	overflow: auto;
+}
+
+.text_container {
+	display: block;
+	float: right;
+	margin: auto;
+	max-width: 700px;
+	width: 700px;
+	text-align: left;
+	font: 12px/1.5 'Helvetica';
+	resize: both;
+}
+
+#content_text {
+	resize: both;
+}
+
+#main_text {
+	font-size: 16px;
+}
+
+fieldset {
+	margin-bottom: 25px;
+}
+
+.footer {
+	box-shadow: 0px 10px 5px #000000;
+	padding: 1em;
+    color: white;
+    background-color: #1284ba;
+    text-align: center;
+    font-family: 'Average', serif;
+    resize: both;
+	overflow: auto;
+    width: 1055px;
+    min-width: 1055px;
+    margin: auto;
+}

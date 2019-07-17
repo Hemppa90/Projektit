@@ -1,0 +1,86 @@
+<!DOCTYPE HTML>
+<html lang="fi">
+	<head>
+		<meta charset="UTF-8"/>
+		<title>Hammaslääkäri Matti Meikäläinen</title>
+		<link rel="stylesheet" type="text/css" href="hammaslaakari_matti_meikalainen_tyyli.css"/>
+		<link rel="stylesheet" href='https://fonts.googleapis.com/css?family=Average'>
+	</head>
+	<body>
+		
+		<div class="container">
+
+			<header>
+				<h1>Hammaslääkäri Matti Meikäläinen</h1>
+			</header>
+
+			<div class="content_container">
+
+				<div class="navibar_container">
+					<a class="navi_text"><b>Etusivu</b></a>
+					<a class="navi_separator"><b> | </b></a>
+					<a class="navi_text"><b>Yhteydenotto</b></a>
+				</div>
+
+				<div class="content">
+					<div class="text_container">
+						<article id="content_text">
+							<h2>Ota yhteyttä!</h2>
+							<hr>
+							<h3>Hammaslääkäri Matti Meikäläinen</h3>
+							<p id="main_text">Y-Tunnus: xxxxxxx-x</p>
+							<p id="main_text"><strong>Oral Tampere</strong></p>
+							<p id="main_text">Hatanpään valtatie 1, 4. krs,<br>33100 Tampere.<br><br>Puhelin (xx)xxxxxxxx</p>
+							<p id="main_text"><strong>Oral Helsinki</strong></p>
+							<p id="main_text">Urho Kekkosen katu 3 B<br>00100 Helsinki<br><br>p. (xx) xxx xxxx<br>050 xxx xxxx</p>
+							<p id="main_text"><strong>Voit myös ottaa yhteyttä suoraan lomakkeen kautta:</strong></p>
+							<fieldset>
+								<legend>Tiedot</legend>
+									<form action="mailto:hermanni.heikkala@gmail.com" method="post" enctype="text/plain">
+  										Nimi:<br>
+  										<input type="text" name="name" size="40">
+  										<br><br>
+  										Sähköposti:<br>
+  										<input type="text" name="mail" size="40">
+  										<br><br>
+  										Aihe:<br>
+  										<input type="text" name="aihe" size="40">
+  										<br><br>
+  										Viesti:<br>
+  										<textarea rows="10" cols="65"></textarea>
+  										<br><br>
+  										<input type="submit" value="Lähetä">
+  										<br>
+									</form>
+							</fieldset>
+						</article>
+					</div>
+
+					<img id="img_dentist" src="free_cartoon_dentist_stock_image.png" alt="dentist">
+					<div id="map" style="width:300px; height:300px; background:grey"></div>
+
+				</div>
+
+				<div class="footer">
+					<p>Hammaslääkäri Matti Meikäläinen  |  meikäläinen.matti@gmail.com  |  Yhteystiedot</p>
+				</div>
+
+			</div>
+		</div>
+
+		<script>
+			function myMap() {
+    			var mapOptions = {
+        			center: new google.maps.LatLng(61.5, 23.79),
+        			zoom: 10,
+        			mapTypeId: google.maps.MapTypeId.ROADMAP
+    			};
+				var map = new google.maps.Map(document.getElementById("map"), mapOptions);
+			}
+		</script>
+
+		<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCpuvNcTnsIvIuTjRDi1Sstgf9ikMsNer8&callback=myMap">
+		</script>
+
+	</body>
+</html>
