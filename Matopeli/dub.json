@@ -1,0 +1,14 @@
+
+{
+"name" : "matopeli",
+"mainSourceFile" : "Matopeli.d",
+"targetName" : "Matopeli",
+"targetType" : "executable",
+"lflags": ["/exet:nt", "/su:windows"],
+"dependencies":
+	{
+	"derelict-sdl2" : "~>1.1.9",
+	"derelict-gl3" : ">=1.0.9"
+	}
+}
+
