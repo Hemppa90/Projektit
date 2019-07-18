@@ -2,10 +2,10 @@
 
 Huomionarvoista:
 
-Chatbot-tiedosto on osa isompaa kokonaisuutta. Tiedostossa on vain minun koodaamaani
-käyttöliittymää ja keskustelua back-endin kanssa. En itse ollut vastuussa back-endistä.
-Sen kirjoitti eräs toinen henkilö, joten siksi sitä puolta ei täältä löydy. Käyttöliittymä toki
-toimii itsessään selaimessa ihan hyvin ja siitä voi jotain kuvaa saada.
+Chatbot-tiedosto on osa isompaa kokonaisuutta. Tiedostossa on käytännössä vain minun koodaamaani
+käyttöliittymää. Osa koodista saattaa vaikuttaa hämmentävältä, sillä koodasin käyttöliittymän keskustelemaan
+back-endin kanssa. En itse ollut vastuussa back-endistä. Sen kirjoitti eräs toinen henkilö, joten siksi
+sitä puolta ei täältä löydy. Käyttöliittymä toki toimii itsessään selaimessa ihan hyvin ja siitä voi jotain kuvaa saada.
 
 Hammaslääkärisivut oli tarkoitettu alunperin isäni käyttöön. Sivuja ei lopulta tarvittukaan,
 joten jatkoin niiden kehittämistä harjoitusmielessä.
