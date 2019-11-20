@@ -10,6 +10,4 @@ sitä puolta ei täältä löydy. Käyttöliittymä toki toimii selaimessa ihan 
 Hammaslääkärisivut oli tarkoitettu alunperin isäni käyttöön. Sivuja ei lopulta tarvittukaan,
 joten jatkoin niiden kehittämistä harjoitusmielessä.
 
-Matopeli-kansiossa on vain D-kielellä kirjoitettu lähdekooditiedosto. Peli vaatii käynnistyäkseen .exe tiedoston, mutta se
-vaatisi samaan kansioon niin paljon muitakin komponentteja, ettei github suostunut lataamaan niitä. Siksi näkyvillä on vain
-tuo lähdekoodi, mutta siitä pitäisi kuitenkin kohtuu hyvin päästä kärryille pelin tapahtumista.
+Matopeli-kansiossa on vain D-kielellä kirjoitettu lähdekooditiedosto. Kyseinen peli on vielä keskeneräinen. Peli vaatii käynnistyäkseen .exe tiedoston, mutta se vaatisi samaan kansioon niin paljon muitakin komponentteja, ettei github suostunut lataamaan niitä. Siksi näkyvillä on vain tuo lähdekoodi, mutta siitä pitäisi kuitenkin kohtuu hyvin päästä kärryille pelin tapahtumista.
