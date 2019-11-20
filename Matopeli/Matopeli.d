@@ -76,12 +76,14 @@ void main()
 			}
 		}
 		
+		//tämä luuppi liikuttaa madon osat oikeisiin koordinaatteihin.
 		for(auto i = snake_pieces.length-1; i > 0; --i)
 		{
 			snake_pieces[i].x = snake_pieces[i-1].x;
 			snake_pieces[i].y = snake_pieces[i-1].y;
 		}
 		
+		//nämä suuntatarkistukset määrittävät, minne madon pää tulisi piirtää seuraavaksi.
 		if(direction == Direction.Right)
 		{
 			snake_pieces[0].x += 10;
@@ -99,23 +101,30 @@ void main()
 			snake_pieces[0].y -= 10;
 		}
 		
+		//alustetaan renderöijä.
 		SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
 		SDL_RenderClear(renderer);
 		
+		//alustetaan ruuan piirtäjän raamit, eli leveys ja korkeus. X ja Y määrittävät piirtäjän paikan
+		//pelikentällä.
 		food_sprite_drawer.w = 6;
 		food_sprite_drawer.h = 6;
 		food_sprite_drawer.x = food.x;
 		food_sprite_drawer.y = food.y;	
 		SDL_RenderCopy(renderer, food_texture, null, &food_sprite_drawer);
 		
+		//alustetaan madon osien piirtäjän raamit.
 		snake_sprite_drawer.w = 9;
 		snake_sprite_drawer.h = 9;
+		
+		//täsmätään madon osien ja sen piirtäjän koordinaatit.
 		foreach(snake_piece; snake_pieces)
 		{
 			snake_sprite_drawer.x = snake_piece.x;
 			snake_sprite_drawer.y = snake_piece.y;
 			
-			
+			//madon pään ja ruuan kohtaaminen. Ruuan koordinaatit saavat uudet satunnaiset arvot pelikentältä.
+			//ruoka piirretään näihin koordinaatteihin renderöijän avulla.
 			if(SDL_HasIntersection(&snake_sprite_drawer, &food_sprite_drawer))
 			{
 				food_x_rand = uniform(1, 445);
@@ -125,9 +134,13 @@ void main()
 				food_sprite_drawer.w = 6;
 				food_sprite_drawer.h = 6;
 				food_sprite_drawer.x = food.x;
-				food_sprite_drawer.y = food.y;	
+				food_sprite_drawer.y = food.y;
+				
+				//ruoka piirretään.
 				SDL_RenderCopy(renderer, food_texture, null, &food_sprite_drawer);
 				
+				//ruuan syönnin jälkeen mato saa uuden osan häntänsä päähän. Sen paikka määräytyy
+				//suunnan mukaan.
 				if(direction == Direction.Right)
 				{
 					snake_pieces ~= SnakePiece(snake_pieces[snake_pieces.length-1].x-10, 1);
@@ -145,11 +158,13 @@ void main()
 					snake_pieces ~= SnakePiece(1, snake_pieces[snake_pieces.length-1].y+10);
 				}
 				
+				//mato myös alkaa liikkua hieman nopeampaa, sekä piste ruuan syönnistä kirjataan.
 				delay -= 1;
 				score += 1;
 				writeln(score);
 			}
 			
+			//madon osa piirretään
 			SDL_RenderCopy(renderer, snake_piece_texture, null, &snake_sprite_drawer);
 		}
 				
