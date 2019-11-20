@@ -101,7 +101,7 @@ void main()
 			snake_pieces[0].y -= 10;
 		}
 		
-		//alustetaan renderöijä.
+		//alustetaan renderöijää hieman lisää.
 		SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
 		SDL_RenderClear(renderer);
 		
