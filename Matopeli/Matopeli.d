@@ -32,16 +32,19 @@ void main()
 	snake_pieces ~= SnakePiece(11, 1);
 	snake_pieces ~= SnakePiece(1, 1);
 	
-	//alustetaan ja asetetaan random xy-koordinaattiarvot ruualle, sekä luodaan uusi ruoka-structi näill
+	//alustetaan ja asetetaan random xy-koordinaattiarvot ruualle, sekä luodaan uusi ruoka-structi näillä.
 	auto food_x_rand = uniform(1, 445);
 	auto food_y_rand = uniform(1, 445);
 	auto food = new Food(food_x_rand, food_y_rand);
 	food.x = food_x_rand;
 	food.y = food_y_rand;
 	
+	//luodaan pelin pääluuppi.
 	SDL_Event event;
 	while(true)
 	{
+		//luodaan näppäintenkuuntelu-luuppi, jossa nuolinäppäinten painalluksella voidaan asettaa madon
+		//suunta-muuttuja.
 		while(SDL_PollEvent(&event))
 		{
 			if(event.type == SDL_KEYDOWN)
