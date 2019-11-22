@@ -1,6 +1,6 @@
 # Projektit
 
-Huomionarvoista:
+Tässä kansiosta löytyy näytteitä kirjoittamastani koodista.
 
 Chatbot-tiedosto on osa isompaa kokonaisuutta. Tiedostossa on käytännössä vain minun koodaamaani
 käyttöliittymää. Osa koodista saattaa vaikuttaa hämmentävältä, sillä koodasin käyttöliittymän keskustelemaan
