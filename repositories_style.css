@@ -1,0 +1,153 @@
+
+html
+{
+	scroll-behavior: smooth;
+	padding-left: 3px;
+	padding-top: 3px;
+}
+
+#fetch_repos_button
+{
+	display: block;
+	margin-top: 10px;
+	margin-right: 5px;
+	margin-bottom: 10px;
+}
+
+#input_field_1
+{
+	border: none;
+	border-bottom: 2px solid #3A6083;
+	display: block;
+	margin-top: 10px;
+	margin-right: 5px;
+	margin-bottom: 10px;
+}
+
+#container
+{
+	
+	display: flex;
+	align-items: center;
+}
+
+#container2
+{
+	
+	display: flex;
+	align-items: center;
+}
+
+#banner
+{
+	color: grey;
+	background-color: #5A6B79;
+	position: absolute;
+	text-align: center;
+}
+
+#banner2
+{
+	color: grey;
+	background-color: #5A6B79;
+	position: absolute;
+	text-align: center;
+}
+
+#banner3
+{
+	color: grey;
+	background-color: #5A6B79;
+	position: absolute;
+	text-align: center;
+}
+
+#contentpane
+{
+	border-top: 2px solid #8CA7C0;
+	border-left: 2px solid #BCCEDE;
+	border-right: 2px solid #3A6083;
+	border-bottom: 2px solid #3A6083;
+	display: inline-block;
+	width: 500px;
+	height: 580px;
+}
+
+#contentpane2
+{
+	border-top: 2px solid #8CA7C0;
+	border-left: 2px solid #BCCEDE;
+	border-right: 2px solid #3A6083;
+	border-bottom: 2px solid #3A6083;
+	display: inline-block;
+	width: 500px;
+	height: 580px;
+}
+
+#contentpane3
+{
+	border-top: 2px solid #8CA7C0;
+	border-left: 2px solid #BCCEDE;
+	border-right: 2px solid #3A6083;
+	border-bottom: 2px solid #3A6083;
+	width: 500px;
+	height: 200px;
+}
+
+#content
+{
+	width: 100%;
+}
+
+#content2
+{
+	width: 100%;
+}
+
+#content3
+{
+	width: 100%;
+}
+
+img
+{
+	border-radius: 8px;
+}
+
+tr
+{	
+	white-space: pre;
+	white-space: pre-line;
+	display: flex;
+}
+
+#repo_cell:hover
+{
+	color: white;
+	background-color: #d6d6d6;
+	cursor: pointer;
+}
+
+#commit_cell
+{
+	border-top: 2px solid #8CA7C0;
+	border-left: 2px solid #BCCEDE;
+	border-right: 2px solid #3A6083;
+	border-bottom: 2px solid #3A6083;
+
+}
+
+#status_cell
+{
+	text-align: center;
+}
+
+td
+{
+	padding: 10px 10px 10px 10px;
+	width: 100%;
+	font-family: "Open Sans", sans-serif;
+	word-wrap: break-word;
+	text-align: center;
+	
+}
