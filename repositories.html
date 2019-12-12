@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="fi">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Repositories</title>
+    <link rel="stylesheet" type="text/css" href="repositories_style.css" />
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+  </head>
+  <body>
+
+    <div id="container">
+      <div class="contentpane" style="overflow-y:auto;">
+        <div id="banner" class="w3-container w3-teal">REPOSITORIES</div>
+        <table id="content"></table>
+      </div>
+
+      <div class="contentpane" style="overflow-y:auto;">
+        <div id="banner2" class="w3-container w3-teal">COMMITS</div>
+        <table id="content2"></table>
+      </div>
+    </div>
+
+    <div id="container2">
+      <input type="text" id="input_field" placeholder="Type a user..." />
+      <button id="fetch_repos_button" class="w3-container w3-blue">Fetch Repos</button>
+    </div>
+
+    <div id="contentpane3" style="overflow-y:auto;">
+      <div id="banner3" class="w3-container w3-teal">LOG</div>
+      <table id="content3"></table>
+    </div>
+
+    <script>
+
+      //-----------------------------------------------------------------------------------------------
+
+      //alustetaan tunnistautumistunnukset.
+      const client_id = "b857f54d00ac16a4ea81";
+      const client_secret = "305eec1bd5abd97479198132157528b09c1b211b";
+
+      //haetaan muuttujiin html-elementeistä syötekenttä ja hakupainike.
+      const userValue = document.querySelector("#input_field");
+      const fetchReposButton = document.querySelector("#fetch_repos_button");
+
+      //alustetaan apumuuttujat, joihin tullaan myöhemmin asettamaan käyttäjän ja repositoryjen nimet.
+      var name;
+      var repo;
+
+      //alustetaan lokin viestit.
+      const success_message_repos = "REPOSITORY FETCH SUCCESSFUL: 200";
+      const success_message_commits = "COMMIT FETCH SUCCESS: 200";
+      const failure_message_repos = "REPOSITORY FETCH FAILURE: 400";
+      const failure_message_commits = "COMMIT FETCH FAILURE: 400";
+
+      //-----------------------------------------------------------------------------------------------
+
+      //tämä funktio tekee api-kutsun annetulla käyttäjän nimellä ja esittää repositoryt 
+      //painikkeina taulukossa.
+      function fetchRepos(user)
+      {
+
+        clearRepoResults();
+        clearCommitResults();
+
+        let request = new XMLHttpRequest();
+        request.open('GET', 'https://api.github.com/users/' + user + '/repos?client_id=' + client_id + '&client_secret=' + client_secret + '?page=2&per_page=100', true);
+
+        request.onload = function()
+        {
+          let data = JSON.parse(this.response);
+
+          if(request.status >= 200 && request.status < 400)
+          {
+            //debuggauksen avuksi tuloste konsoliin.
+            console.log(data);
+
+            for(i = 0; i < data.length; i++)
+            {
+              let table = document.getElementById("content");
+              let row = table.insertRow(-1);
+              let cell = row.insertCell(0);
+              let child = document.createElement("div");
+              child.textContent = data[i].name;
+
+              child.addEventListener("click", function()
+              {
+                fetchCommits(this.textContent);
+              });
+
+              cell.appendChild(child);
+              cell.id = "repo_cell";
+
+              if(data[i+1] == null) 
+              {
+                postStatusUpdate(success_message_repos, user);
+              }
+            }
+          }
+          else
+          {
+            postStatusUpdate(failure_message_repos, user);
+          }
+        }
+        request.send();
+      }
+
+      //tämä funktio tekee api-kutsun annetulla repositoryn nimellä ja noutaa sen commitit taulukkoon.
+      //For-luupissa noudetaan kymmenen viimeisintä committia ja niistä authorin nimi,
+      //avatar-kuva, ajankohta ja commit-viesti. Luuppi erottelee myös kuvalliset ja
+      //ei-kuvalliset commitit. 
+      function fetchCommits(repo)
+      {
+
+        clearCommitResults();
+
+        let request = new XMLHttpRequest();
+        request.open('GET', 'https://api.github.com/repos/' + name + '/' + repo + '/commits?client_id=' + client_id + '&client_secret=' + client_secret, true);
+
+        request.onload = function()
+        {
+          let data = JSON.parse(this.response);
+          
+          if(request.status >= 200 && request.status < 400)
+          {
+            for(i = 0; i < 10; i++)
+            {
+              
+              //debuggauksen avuksi tulosteita konsoliin.
+              console.log(data[i]);
+              console.log(data[i].commit.author.name + " " + 
+                          data[i].commit.author.date + " " +
+                          data[i].commit.message);
+
+              let table = document.getElementById("content2");
+              let row = table.insertRow(-1);
+              let cell = row.insertCell(0);
+              let child = document.createElement("div");
+
+              child.textContent = repo + " | " + "Commit " + (i+1) + "\n" + 
+                                 "Author Name: " + data[i].commit.author.name + "\n" + 
+                                 "Author Date: " + data[i].commit.author.date + "\n" + 
+                                 "Message: "     + data[i].commit.message + "\n";
+
+              //jos authorilla avatar, lisätään se mukaan.
+              if(data[i].author != null)
+              {
+                let img = document.createElement("img");
+                img.height = 200;
+                img.width = 200;
+                img.src = data[i].author.avatar_url;
+                cell.appendChild(img);
+          
+                cell.appendChild(child);
+                cell.id = "commit_cell";
+              }
+              else
+              {
+                cell.appendChild(child);
+                cell.id = "commit_cell";
+              }
+
+              //tarkistetaan onko commit-haku onnistunut, eli max 10 onnistunutta committia tai
+              //commitit loppuneet kesken ja taulukossa seuraava null.
+              if((i + 1) > 9 || data[i+1] == null)
+              {
+                postStatusUpdate(success_message_commits, repo);
+              }
+            }
+          }
+          else
+          {
+            postStatusUpdate(failure_message_commits, repo);
+          }
+        }
+        request.send();
+      }
+
+      //tämä funktio päivittää lokiin hakujen onnistumiset tai epäonnistumiset.
+      function postStatusUpdate(message, data)
+      {
+        let table = document.getElementById("content3");
+        let row = table.insertRow(-1);
+        let cell = row.insertCell(0);
+        let child = document.createElement("div");
+
+        let today = new Date();
+        let date = today.getDate() + '-' + (today.getMonth() + 1) + '-' + today.getFullYear();
+        let time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+        let dateTime = date + ' ' + time;
+
+        child.textContent = message + "\n" + "FETCH: " + data + "\n" + dateTime;
+
+        cell.appendChild(child);
+        cell.id = "status_cell";
+        child.scrollIntoView();
+      }
+
+      //tällä funktiolla tyhjennetään repositorypainikkeet taulukosta.
+      function clearRepoResults()
+      {
+        let table = document.getElementById("content");
+        table.innerHTML = '';
+      }
+
+      //tällä funktiolla tyhjennetään listatut commitit taulukosta.
+      function clearCommitResults()
+      {
+        let table = document.getElementById("content2");
+        table.innerHTML = '';
+      }
+
+      //tässä liitetään repositoryjen hakupainikkeelle klikinkuuntelija.
+      //syötekentän käyttäjä asetetaan apumuuttujaan ja sillä laukaistaan
+      //repositoryjen noutofunktio.
+      fetchReposButton.addEventListener("click", () => 
+      {
+        name = userValue.value;
+        fetchRepos(name);
+      })
+
+    </script>
+
+  </body>
+</html>
